@@ -8,3 +8,22 @@ export interface IAddBroker {
   name: string,
   balance: number
 }
+
+export interface IStock {
+  id: number,
+  label: string,
+  name: string,
+  price: number,
+  date?: string
+}
+
+export interface IStockData {
+  date: string,
+  open: string
+}
+
+export interface IHistoricalData {
+  id: number,
+  label: string,
+  stocks: IStockData[]
+}

@@ -8,8 +8,8 @@ export class BrokersService {
   private brokers: IBroker[];
 
   constructor() {
-    const brokersJson: Buffer = fs.readFileSync('./src/json/brokers.json');
-    this.brokers = JSON.parse(String(brokersJson));
+    const brokersJSON: Buffer = fs.readFileSync('./src/json/brokers.json');
+    this.brokers = JSON.parse(String(brokersJSON));
   }
 
   async getAllBrokers() {
@@ -49,7 +49,7 @@ export class BrokersService {
   }
 
   async updateBroker(broker: IBroker) {
-    console.log(broker);
+    //console.log(broker);
     let brokerIdx = this.brokers.map((broker) => {
       return broker.id
     }).indexOf(broker.id);
