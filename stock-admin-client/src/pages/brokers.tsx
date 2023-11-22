@@ -23,9 +23,12 @@ export function BrokersPage(){
           {
             brokers.map((broker) => (
               <li key={broker.id}>
-                <p>ID: {broker.id}</p>
-                <p>Name: {broker.name}</p>
-                <p>Balance: {broker.balance}</p>
+                <div>
+                  <p>ID: {broker.id}</p>
+                  <p>Name: {broker.name}</p>
+                  <p>Balance: {broker.balance}</p>
+                  <button onClick={() => deleteBroker(broker.id)}>Удалить</button>
+                </div>
               </li>
             ))
           }

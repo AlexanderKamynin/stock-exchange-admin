@@ -22,7 +22,7 @@ export function AddBroker({onAdd}: IOnAddBrokerFunction)
         balance: balance
       };
 
-      const response = await axios.post<IBroker>('http://localhost:3001/brokers', newBroker);
+      const response = await axios.post<IBroker>('http://localhost:3001/brokers/add', newBroker);
       console.log(response.data);
       onAdd(response.data);
     }

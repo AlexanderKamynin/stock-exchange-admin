@@ -12,11 +12,18 @@ export function BrokersService()
     setBrokers(prev => [...prev, broker]);
   }
 
-  function deleteBroker(id: number)
+  async function deleteBroker(id: number)
   {
-    setBrokers(brokers.filter(
-      broker => broker.id !== id
-    ));
+    //delete from server
+    const response = await axios.post('http://localhost:3001/brokers/delete', {id: id});
+
+    if(response.status)
+    {
+      //delete from client
+      setBrokers(brokers.filter(
+        broker => broker.id !== id
+      ));
+    }
   }
 
   async function getBrokers()

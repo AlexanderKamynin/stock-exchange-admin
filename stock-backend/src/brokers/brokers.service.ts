@@ -37,6 +37,14 @@ export class BrokersService {
   }
 
   async deleteBroker(id: number) {
+    //console.log(id);
+    let brokerIdx = this.brokers.map((broker) => {
+      return broker.id
+    }).indexOf(id);
 
+    if(brokerIdx != -1)
+    {
+      this.brokers.splice(brokerIdx, 1);
+    }
   }
 }

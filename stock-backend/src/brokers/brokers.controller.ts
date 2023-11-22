@@ -19,15 +19,15 @@ export class BrokersController {
     return await this.brokerService.getBrokerById(id);
   }
 
-  @Post()
+  @Post('add')
   async addBroker(@Body() broker: IAddBroker)
   {
     return await this.brokerService.addBroker(broker);
   }
 
-  @Post()
-  async deleteBroker(@Body() id: number)
+  @Post('delete')
+  async deleteBroker(@Body() id)
   {
-    return await this.brokerService.deleteBroker(id);
+    return await this.brokerService.deleteBroker(id.id);
   }
 }
