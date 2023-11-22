@@ -10,16 +10,16 @@ interface IOnAddBrokerFunction {
 export function AddBroker({onAdd}: IOnAddBrokerFunction)
 {
   const [name, setName] = useState('');
-  const [balance, setBalance] = useState(0);
+  const [balance, setBalance] = useState('');
 
   async function onSubmit(event)
   {
     event.preventDefault();
 
-    if(name !== '' && balance >= 0) {
+    if(name !== '' && balance !== '') {
       let newBroker: IBrokerAdd = {
         name: name,
-        balance: balance
+        balance: parseInt(balance)
       };
 
       const response = await axios.post<IBroker>('http://localhost:3001/brokers/add', newBroker);

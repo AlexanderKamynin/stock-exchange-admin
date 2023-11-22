@@ -26,6 +26,11 @@ export function BrokersService()
     }
   }
 
+  async function updateBroker(brokerInfo: IBroker)
+  {
+    setBrokers(prev => prev.map((broker) => broker.id === brokerInfo.id ? { ...broker, ...brokerInfo} : broker));
+  }
+
   async function getBrokers()
   {
     const response = await axios.get<IBroker[]>('http://localhost:3001/brokers');
@@ -37,5 +42,5 @@ export function BrokersService()
     getBrokers()
   }, [])
 
-  return { brokers, addBroker, deleteBroker }
+  return { brokers, addBroker, deleteBroker, updateBroker }
 }

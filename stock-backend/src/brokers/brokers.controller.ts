@@ -30,4 +30,10 @@ export class BrokersController {
   {
     return await this.brokerService.deleteBroker(id.id);
   }
+
+  @Post('update')
+  async updateBroker(@Body() broker: IBroker)
+  {
+    return await this.brokerService.updateBroker(broker);
+  }
 }

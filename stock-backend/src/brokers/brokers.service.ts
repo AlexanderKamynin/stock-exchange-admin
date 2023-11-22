@@ -47,4 +47,35 @@ export class BrokersService {
       this.brokers.splice(brokerIdx, 1);
     }
   }
+
+  async updateBroker(broker: IBroker) {
+    console.log(broker);
+    let brokerIdx = this.brokers.map((broker) => {
+      return broker.id
+    }).indexOf(broker.id);
+
+    if(brokerIdx === -1)
+    {
+      return {
+        isOk: false,
+        broker: null
+      }
+    }
+    else {
+      if(broker.balance < 0){
+        broker.balance = 0;
+      }
+
+      this.brokers[brokerIdx].balance = broker.balance;
+
+      if(broker.name !== ""){
+        this.brokers[brokerIdx].name = broker.name;
+      }
+    }
+
+    return {
+      isOk: true,
+      broker: this.brokers[brokerIdx]
+    }
+  }
 }

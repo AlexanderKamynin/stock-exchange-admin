@@ -3,17 +3,25 @@ import { AddBroker } from "../components/addBroker.tsx";
 import { BrokersService } from "../services/brokers.service.tsx" 
 import { ModalWindow, ModalWindowState } from "../components/modalWindow.tsx";
 import { IBroker } from "../interfaces/broker.ts";
+import { UpdateBroker } from "../components/updateBroker.tsx";
 
 
 export function BrokersPage(){
-  const { isOpen, open: openModal, close: closeModal } = ModalWindowState();
-  const { brokers, addBroker, deleteBroker } = BrokersService();
+  const { isOpen: isOpenAdd, open: openModalAdd, close: closeModalAdd } = ModalWindowState();
+  const { isOpen: isOpenUpdate, open: openModalUpdate, close: closeModalUpdate } = ModalWindowState();
+  const { brokers, addBroker, deleteBroker, updateBroker } = BrokersService();
 
 
   function onAddBroker(broker: IBroker)
   {
-    closeModal();
+    closeModalAdd();
     addBroker(broker);
+  }
+
+  function onUpdateBroker(broker: IBroker)
+  {
+    closeModalUpdate();
+    updateBroker(broker);
   }
 
   return (
@@ -27,7 +35,7 @@ export function BrokersPage(){
                   <p>ID: {broker.id}</p>
                   <p>Name: {broker.name}</p>
                   <p>Balance: {broker.balance}</p>
-                  <button onClick={() => deleteBroker(broker.id)}>Удалить</button>
+                  <button onClick={() => deleteBroker(broker.id)}>Delete</button>
                 </div>
               </li>
             ))
@@ -36,17 +44,32 @@ export function BrokersPage(){
       </div>
 
       {
-        isOpen && 
+        isOpenAdd && 
           <ModalWindow
             title={"Add broker"}
             content={<AddBroker onAdd={onAddBroker}/>}
-            onClose={closeModal}
+            onClose={closeModalAdd}
           />
       }
       
       {
-        !isOpen &&
-          <button onClick={openModal}>Add broker</button>
+        !isOpenAdd &&
+          <button onClick={openModalAdd}>Add broker</button>
+      }
+
+
+      {
+        !isOpenUpdate &&
+        <button onClick={openModalUpdate}>Change</button>
+      }
+
+      {
+        isOpenUpdate &&
+        <ModalWindow
+          title={"Change information"}
+          content={<UpdateBroker onUpdate={onUpdateBroker}/>}
+          onClose={closeModalUpdate}
+        />
       }
     </>
   )
