@@ -1,23 +1,50 @@
-import React from "react"
+import React, { useContext } from "react"
+import { AddBroker } from "../components/addBroker.tsx";
 import { BrokersService } from "../services/brokers.service.tsx" 
+import { ModalWindow, ModalWindowState } from "../components/modalWindow.tsx";
+import { IBroker } from "../interfaces/broker.ts";
 
-function BrokerInformation() {
-  return (
-    <>
-      <div>
-        <p>Broker name</p>
-        <p>Broker balance</p>
-      </div>
-    </>
-  )
-}
 
 export function BrokersPage(){
-  const { brokers } = BrokersService();
+  const { isOpen, open: openModal, close: closeModal } = ModalWindowState();
+  const { brokers, addBroker, deleteBroker } = BrokersService();
+
+
+  function onAddBroker(broker: IBroker)
+  {
+    closeModal();
+    addBroker(broker);
+  }
 
   return (
     <>
-      <p>Аыаыблыалыб</p>
+      <div className='brokers'>
+        <ul>
+          {
+            brokers.map((broker) => (
+              <li key={broker.id}>
+                <p>ID: {broker.id}</p>
+                <p>Name: {broker.name}</p>
+                <p>Balance: {broker.balance}</p>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      {
+        isOpen && 
+          <ModalWindow
+            title={"Add broker"}
+            content={<AddBroker onAdd={onAddBroker}/>}
+            onClose={closeModal}
+          />
+      }
+      
+      {
+        !isOpen &&
+          <button onClick={openModal}>Add broker</button>
+      }
     </>
   )
 }

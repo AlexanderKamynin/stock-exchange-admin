@@ -1,5 +1,6 @@
 import { Controller, Get, Post, Param, Body, Header } from '@nestjs/common';
 import { BrokersService } from './brokers.service';
+import { IAddBroker, IBroker } from 'src/interfaces/interfaces';
 
 @Controller('brokers')
 export class BrokersController {
@@ -19,7 +20,7 @@ export class BrokersController {
   }
 
   @Post()
-  async addBroker(@Body() broker: any)
+  async addBroker(@Body() broker: IAddBroker)
   {
     return await this.brokerService.addBroker(broker);
   }

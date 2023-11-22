@@ -7,14 +7,16 @@ export function BrokersService()
 {
   const [brokers, setBrokers] = useState<IBroker[]>([]);
 
-  function addBroker(broker: IBroker)
+  async function addBroker(broker: IBroker)
   {
-    //
+    setBrokers(prev => [...prev, broker]);
   }
 
   function deleteBroker(id: number)
   {
-    //
+    setBrokers(brokers.filter(
+      broker => broker.id !== id
+    ));
   }
 
   async function getBrokers()
@@ -28,5 +30,5 @@ export function BrokersService()
     getBrokers()
   }, [])
 
-  return { brokers }
+  return { brokers, addBroker, deleteBroker }
 }

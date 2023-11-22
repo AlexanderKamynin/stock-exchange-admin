@@ -3,3 +3,8 @@ export interface IBroker{
   name: string,
   balance: number
 };
+
+export interface IAddBroker {
+  name: string,
+  balance: number
+}

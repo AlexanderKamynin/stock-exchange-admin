@@ -5,3 +5,10 @@ export interface IBroker
   balance: number
 };
 
+
+export interface IBrokerAdd
+{
+  name: string,
+  balance: number
+}
+
