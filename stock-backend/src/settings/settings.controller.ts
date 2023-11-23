@@ -17,6 +17,7 @@ export class SettingsController {
   @Post()
   async update(@Body() settings: ISettings)
   {
+    //console.log(settings);
     await this.settingsService.updateSettings(settings);
   }
 

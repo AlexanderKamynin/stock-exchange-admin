@@ -15,7 +15,7 @@ export class WebsocketGateway {
 
   @SubscribeMessage('stopAuction') 
   onStop(client: Socket) {
-    console.log(this.timer);
+    //console.log(this.timer);
     this.server.emit('stopAuction');
     this.clearTimer();
   }
@@ -34,9 +34,8 @@ export class WebsocketGateway {
         let { isStarted } = this.settingsService.getSettings();
         if(isStarted && updatedStocks && dataIdx) {
           let updatingStocksString = await this.auctionService.getNewPrices(--dataIdx);
-          updatedStocks = JSON.parse(updatingStocksString);
-          console.log(updatingStocksString, updatedStocks);
-
+          updatedStocks = updatingStocksString;
+          console.log(updatedStocks);
           this.server.emit('updatePrices', updatedStocks);
         }
       }, 1000*speed);

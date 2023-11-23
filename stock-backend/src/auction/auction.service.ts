@@ -47,8 +47,8 @@ export class AuctionService {
         date: data[dataIdx].date
       };
     });
-
-    return JSON.stringify(updatedStocks);
+    console.log(updatedStocks);
+    return updatedStocks;
   }
 
   private findIdxDataByDate(startDate: Date) {

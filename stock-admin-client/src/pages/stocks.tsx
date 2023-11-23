@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { StocksService } from "../services/stocks.service.tsx";
 import { ViewHistoricalData } from "../components/viewHistoricalData.tsx";
+import { StockInformation } from "../components/stockInformation.tsx";
 
 
 export function StocksPage()
 {
   const { stocks } = StocksService();
+
 
   return (
     <>
@@ -16,13 +18,7 @@ export function StocksPage()
         {
           stocks.map((stock) => (
             <li key={stock.id}>
-              <div>
-                <p>ID: {stock.id}</p>
-                <p>label: {stock.label}</p>
-                <p>Company: {stock.name}</p>
-                <p>Price: {stock.price}</p>
-              </div>
-              <Link to={`/history/${stock.id}`}>History</Link>
+              <StockInformation stock={stock} />
             </li>
           ))
         }
