@@ -9,6 +9,7 @@ export interface IStock
 }
 
 export interface IHistoricalData {
+  id: number,
   label: string,
   stocks: {
     date: string,

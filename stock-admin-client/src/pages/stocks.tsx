@@ -1,11 +1,12 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { StocksService } from "../services/stocks.service.tsx";
-import { HistoricalDataService } from "../services/historicalData.service.tsx"; 
+import { ViewHistoricalData } from "../components/viewHistoricalData.tsx";
+
 
 export function StocksPage()
 {
   const { stocks } = StocksService();
-  //const { historicalData } = HistoricalDataService();
 
   return (
     <>
@@ -20,6 +21,7 @@ export function StocksPage()
                 <p>Company: {stock.name}</p>
                 <p>Price: {stock.price}</p>
               </div>
+              <Link to={`/history/${stock.id}`}>History</Link>
             </li>
           ))
         }
