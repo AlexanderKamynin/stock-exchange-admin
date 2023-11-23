@@ -20,7 +20,7 @@ export function SettingsPage()
   });
 
   useEffect(() => {
-    const newSocket = io("http://localhost:3001", { transports: ['websocket'] });
+    const newSocket = io("http://localhost:3002", { transports: ['websocket'] });
     setSocket(newSocket);
   }, [setSocket]);
 

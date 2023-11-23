@@ -11,7 +11,7 @@ export class SettingsController {
   @Get()
   @Header('Content-Type', 'application/json')
   async getSettings() {
-    return await this.settingsService.getSettings();
+    return this.settingsService.getSettings();
   }
 
   @Post()

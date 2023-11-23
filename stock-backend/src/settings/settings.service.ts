@@ -11,7 +11,7 @@ export class SettingsService {
     this.settings = JSON.parse(String(settingsJSON));
   };
 
-  async getSettings() {
+  getSettings() {
     return this.settings;
   }
 

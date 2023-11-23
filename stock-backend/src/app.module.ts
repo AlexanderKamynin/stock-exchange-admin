@@ -8,10 +8,12 @@ import { StocksService } from './stocks/stocks.service';
 import { SettingsController } from './settings/settings.controller';
 import { SettingsService } from './settings/settings.service';
 import { WebsocketGateway } from './websocket/websocket.gateway';
+import { AuctionService } from './auction/auction.service';
+import { AuctionController } from './auction/auction.controller';
 
 @Module({
   imports: [],
-  controllers: [AppController, BrokersController, StocksController, SettingsController],
-  providers: [AppService, BrokersService, StocksService, SettingsService, WebsocketGateway],
+  controllers: [AppController, BrokersController, StocksController, SettingsController, AuctionController],
+  providers: [AppService, BrokersService, StocksService, SettingsService, WebsocketGateway, AuctionService],
 })
 export class AppModule {}
