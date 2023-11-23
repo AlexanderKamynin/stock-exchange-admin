@@ -27,3 +27,11 @@ export interface IHistoricalData {
   label: string,
   stocks: IStockData[]
 }
+
+export interface ISettings {
+  speed: number,
+  startDate: string,
+  currentDate: string,
+  chosenStocks: IStock[],
+  isStarted: boolean
+}

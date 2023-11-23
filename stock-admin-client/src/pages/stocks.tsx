@@ -10,6 +10,7 @@ export function StocksPage()
 
   return (
     <>
+    <Link to="http://localhost:3000/settings"><button>Auction</button></Link>
     <div className='stocks'>
       <ul>
         {
