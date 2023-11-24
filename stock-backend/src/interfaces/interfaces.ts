@@ -1,7 +1,8 @@
 export interface IBroker{
   id: number,
   name: string,
-  balance: number
+  balance: number,
+  stocks: IStock[]
 };
 
 export interface IAddBroker {

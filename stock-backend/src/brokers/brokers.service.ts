@@ -10,6 +10,7 @@ export class BrokersService {
   constructor() {
     const brokersJSON: Buffer = fs.readFileSync('./src/json/brokers.json');
     this.brokers = JSON.parse(String(brokersJSON));
+    console.log(this.brokers);
   }
 
   async getAllBrokers() {
@@ -29,7 +30,8 @@ export class BrokersService {
     let newBroker: IBroker = {
       id: maxId + 1,
       name: broker.name,
-      balance: broker.balance
+      balance: broker.balance,
+      stocks: []
     }
 
     this.brokers.push(newBroker);
