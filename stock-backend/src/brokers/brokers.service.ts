@@ -1,20 +1,45 @@
 import { Injectable } from '@nestjs/common';
-import { IAddBroker, IBroker } from 'src/interfaces/interfaces';
+import { IAddBroker, IBroker, IBrokerPortfolio, IBrokerPortfolioItem } from 'src/interfaces/interfaces';
 import * as fs from 'fs';
 
 
 @Injectable()
 export class BrokersService {
   private brokers: IBroker[];
+  private brokersPortfolios: IBrokerPortfolio[];
 
   constructor() {
     const brokersJSON: Buffer = fs.readFileSync('./src/json/brokers.json');
     this.brokers = JSON.parse(String(brokersJSON));
-    console.log(this.brokers);
+    //console.log(this.brokers);
+
+    const brokersPortfolioJSON: Buffer = fs.readFileSync('./src/json/brokersPortfolios.json');
+    this.brokersPortfolios = JSON.parse(String(brokersPortfolioJSON));
+    //console.log(this.brokersPortfolios);
   }
 
   async getAllBrokers() {
     return this.brokers;
+  }
+
+  async getBrokerPortfolio(id: number) {
+    return this.brokersPortfolios.find((item: IBrokerPortfolio) => {
+      return item.brokerId === id;
+    })
+  }
+
+  async getBrokerBalance(id: number) {
+    let broker = this.brokers.find((broker: IBroker) => {
+      return broker.id === id;
+    });
+    return broker.balance;
+  }
+
+  async setBrokerBalance(id: number, newBalance: number) {
+    let idx = this.brokers.map((broker) => {
+      return broker.id;
+    }).indexOf(id);
+    this.brokers[idx].balance = newBalance;
   }
 
   async getBrokerById(id: number) {
@@ -30,11 +55,23 @@ export class BrokersService {
     let newBroker: IBroker = {
       id: maxId + 1,
       name: broker.name,
-      balance: broker.balance,
+      balance: broker.balance
+    }
+
+    let newBrokerPortfolio: IBrokerPortfolio = {
+      brokerId: newBroker.id,
       stocks: []
     }
 
+    //TODO: исправить этот кринж
+    for(let i = 1; i<=8; i++) {
+      let portfolio: IBrokerPortfolioItem = { id: i, count: 0, price: 0 };
+      newBrokerPortfolio.stocks.push(portfolio);
+    }
+
     this.brokers.push(newBroker);
+    this.brokersPortfolios.push(newBrokerPortfolio);
+
     return newBroker;
   }
 
@@ -47,6 +84,15 @@ export class BrokersService {
     if(brokerIdx != -1)
     {
       this.brokers.splice(brokerIdx, 1);
+    }
+
+    let brokerPortfolioIdx = this.brokersPortfolios.map((portfolio) => {
+      return portfolio.brokerId;
+    }).indexOf(id);
+
+    if(brokerPortfolioIdx != -1)
+    {
+      this.brokersPortfolios.splice(brokerPortfolioIdx, 1);
     }
   }
 

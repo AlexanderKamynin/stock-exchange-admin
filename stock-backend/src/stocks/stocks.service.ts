@@ -15,6 +15,8 @@ export class StocksService {
     this.historicalData = JSON.parse(String(historicalJSON));
   }
 
+  //TODO: что-то брокерам тут нужно походу
+
   async getAllStocks() {
     return this.stocks;
   }

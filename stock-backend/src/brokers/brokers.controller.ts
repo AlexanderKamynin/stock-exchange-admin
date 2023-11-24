@@ -14,9 +14,24 @@ export class BrokersController {
   }
 
   @Get(':id')
+  @Header('Content-Type', 'application/json')
   async getBrokerById(@Param('id') id: number)
   {
     return await this.brokerService.getBrokerById(id);
+  }
+
+  @Get('/stocks/:id')
+  @Header('Content-Type', 'application/json')
+  async getBrokerPortfolio(@Param('id') id: number)
+  {
+    return await this.brokerService.getBrokerPortfolio(id);
+  }
+
+  @Get('/balance/:id')
+  @Header('Content-Type', 'application/json')
+  async getBrokerBalace(@Param('id') id: number)
+  {
+    return await this.brokerService.getBrokerBalance(id);
   }
 
   @Post('add')
