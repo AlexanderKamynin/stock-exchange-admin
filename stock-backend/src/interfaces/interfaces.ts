@@ -20,8 +20,10 @@ export interface IStock {
 
 export interface IBrokerPortfolioItem {
   id: number,
-  count: number,
-  price: number
+  prices: {
+    data: string,
+    price: number
+  }
 }
 
 export interface IBrokerPortfolio {

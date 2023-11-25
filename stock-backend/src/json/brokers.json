@@ -3,12 +3,87 @@
     "id": 1,
     "name": "Saska Kamishka",
     "balance": 0,
-    "stocks": []
+    "stocks": [
+      {
+        "id": 1,
+        "prices": [
+          {
+            "data": "2022-10-10",
+            "price": 100
+          },
+          {
+            "data": "2022-10-11",
+            "price": 200
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "prices": {}
+      },
+      {
+        "id": 3,
+        "prices": {}
+      },
+      {
+        "id": 4,
+        "prices": {}
+      },
+      {
+        "id": 5,
+        "prices": {}
+      },
+      {
+        "id": 6,
+        "prices": {}
+      },
+      {
+        "id": 7,
+        "prices": {}
+      },
+      {
+        "id": 8,
+        "prices": {}
+      }
+    ]
   },
   {
     "id": 2,
     "name": "Danilka Bussiness Man",
     "balance": 100,
-    "stocks": []
+    "stocks": [
+      {
+        "id": 1,
+        "prices": {}
+      },
+      {
+        "id": 2,
+        "prices": {}
+      },
+      {
+        "id": 3,
+        "prices": {}
+      },
+      {
+        "id": 4,
+        "prices": {}
+      },
+      {
+        "id": 5,
+        "prices": {}
+      },
+      {
+        "id": 6,
+        "prices": {}
+      },
+      {
+        "id": 7,
+        "prices": {}
+      },
+      {
+        "id": 8,
+        "prices": {}
+      }
+    ]
   }
 ]

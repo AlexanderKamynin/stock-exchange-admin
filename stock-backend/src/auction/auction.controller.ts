@@ -9,16 +9,16 @@ export class AuctionController {
 
   };
 
-  //Ну тут был прикол с httpCode...
-  @Post('buy')
-  @Header('Content-Type', 'application/json')
-  async buyStock(@Body() data: IBuyData) {
-    return await this.auctionService.buyStock(data);
-  }
+  // //Ну тут был прикол с httpCode...
+  // @Post('buy')
+  // @Header('Content-Type', 'application/json')
+  // async buyStock(@Body() data: IBuyData) {
+  //   return await this.auctionService.buyStock(data);
+  // }
 
-  @Post('sell')
-  @Header('Content-Type', 'application/json')
-  async sellStock(@Body() data: IBuyData) {
-    return await this.auctionService.sellStock(data);
-  }
+  // @Post('sell')
+  // @Header('Content-Type', 'application/json')
+  // async sellStock(@Body() data: IBuyData) {
+  //   return await this.auctionService.sellStock(data);
+  // }
 }

@@ -11,11 +11,7 @@ export class BrokersService {
   constructor() {
     const brokersJSON: Buffer = fs.readFileSync('./src/json/brokers.json');
     this.brokers = JSON.parse(String(brokersJSON));
-    //console.log(this.brokers);
-
-    const brokersPortfolioJSON: Buffer = fs.readFileSync('./src/json/brokersPortfolios.json');
-    this.brokersPortfolios = JSON.parse(String(brokersPortfolioJSON));
-    //console.log(this.brokersPortfolios);
+    console.log(this.brokers);
   }
 
   async getAllBrokers() {
@@ -64,13 +60,13 @@ export class BrokersService {
     }
 
     //TODO: исправить этот кринж
-    for(let i = 1; i<=8; i++) {
-      let portfolio: IBrokerPortfolioItem = { id: i, count: 0, price: 0 };
-      newBrokerPortfolio.stocks.push(portfolio);
-    }
+    // for(let i = 1; i<=8; i++) {
+    //   let portfolio: IBrokerPortfolioItem = { id: i, count: 0, price: 0 };
+    //   newBrokerPortfolio.stocks.push(portfolio);
+    // }
 
     this.brokers.push(newBroker);
-    this.brokersPortfolios.push(newBrokerPortfolio);
+    //this.brokersPortfolios.push(newBrokerPortfolio);
 
     return newBroker;
   }
