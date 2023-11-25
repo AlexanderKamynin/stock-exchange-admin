@@ -17,9 +17,4 @@ export class StocksController {
   async getHistoricalData() {
     return await this.stocksService.getHistoricalData();
   }
-
-  @Post()
-  async postUpdatedStocks(@Body() stocks: IStock[]) {
-    return await this.stocksService.updateStocksPrice(stocks);
-  }
 }
