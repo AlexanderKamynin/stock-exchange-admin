@@ -22,4 +22,16 @@ export class StocksService {
   async getHistoricalData() {
     return this.historicalData;
   }
+
+  async updateStocksPrice(updatedStocks: IStock[]) {
+    for(let updStock of updatedStocks) {
+      let idx = this.stocks.map((stock) => {
+        return stock.id
+      }).indexOf(updStock.id);
+
+      if(idx !== -1) {
+        this.stocks[idx].price = updStock.price;
+      }
+    }
+  }
 }

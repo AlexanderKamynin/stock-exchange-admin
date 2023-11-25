@@ -1,5 +1,6 @@
-import { Controller, Get, Header } from '@nestjs/common';
+import { Body, Controller, Get, Header } from '@nestjs/common';
 import { StocksService } from './stocks.service';
+import { IStock } from 'src/interfaces/interfaces';
 
 @Controller('stocks')
 export class StocksController {
@@ -15,5 +16,10 @@ export class StocksController {
   @Header('Content-Type', 'application/json')
   async getHistoricalData() {
     return await this.stocksService.getHistoricalData();
+  }
+
+  @Post()
+  async postUpdatedStocks(@Body() stocks: IStock[]) {
+    return await this.stocksService.updateStocksPrice(stocks);
   }
 }

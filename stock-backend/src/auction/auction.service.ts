@@ -50,6 +50,9 @@ export class AuctionService {
       };
     });
     console.log(updatedStocks);
+    //sets new prices
+    await this.stockService.updateStocksPrice(updatedStocks);
+
     return updatedStocks;
   }
 
