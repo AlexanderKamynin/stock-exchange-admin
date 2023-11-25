@@ -19,31 +19,31 @@
       },
       {
         "id": 2,
-        "prices": {}
+        "prices": []
       },
       {
         "id": 3,
-        "prices": {}
+        "prices": []
       },
       {
         "id": 4,
-        "prices": {}
+        "prices": []
       },
       {
         "id": 5,
-        "prices": {}
+        "prices": []
       },
       {
         "id": 6,
-        "prices": {}
+        "prices": []
       },
       {
         "id": 7,
-        "prices": {}
+        "prices": []
       },
       {
         "id": 8,
-        "prices": {}
+        "prices": []
       }
     ]
   },
@@ -54,35 +54,35 @@
     "stocks": [
       {
         "id": 1,
-        "prices": {}
+        "prices": []
       },
       {
         "id": 2,
-        "prices": {}
+        "prices": []
       },
       {
         "id": 3,
-        "prices": {}
+        "prices": []
       },
       {
         "id": 4,
-        "prices": {}
+        "prices": []
       },
       {
         "id": 5,
-        "prices": {}
+        "prices": []
       },
       {
         "id": 6,
-        "prices": {}
+        "prices": []
       },
       {
         "id": 7,
-        "prices": {}
+        "prices": []
       },
       {
         "id": 8,
-        "prices": {}
+        "prices": []
       }
     ]
   }

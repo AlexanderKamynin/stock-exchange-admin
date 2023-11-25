@@ -13,12 +13,12 @@ export class BrokersController {
     return await this.brokerService.getAllBrokers();
   }
 
-  @Get(':id')
-  @Header('Content-Type', 'application/json')
-  async getBrokerById(@Param('id') id: number)
-  {
-    return await this.brokerService.getBrokerById(id);
-  }
+  // @Get(':id')
+  // @Header('Content-Type', 'application/json')
+  // async getBrokerById(@Param('id') id: number)
+  // {
+  //   return await this.brokerService.getBrokerById(id);
+  // }
 
   @Get('/stocks/:id')
   @Header('Content-Type', 'application/json')

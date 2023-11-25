@@ -38,10 +38,6 @@ export class BrokersService {
     this.brokers[idx].balance = newBalance;
   }
 
-  async getBrokerById(id: number) {
-    //писька
-  }
-
   async addBroker(broker: IAddBroker) {
     let maxId: number | undefined = this.brokers.reduce((max, broker) => {
       return broker.id > max ? broker.id : max;
@@ -51,17 +47,15 @@ export class BrokersService {
     let newBroker: IBroker = {
       id: maxId + 1,
       name: broker.name,
-      balance: broker.balance
-    }
-
-    let newBrokerPortfolio: IBrokerPortfolio = {
-      brokerId: newBroker.id,
+      balance: broker.balance,
       stocks: []
     }
 
-    //TODO: исправить этот кринж
     // for(let i = 1; i<=8; i++) {
-    //   let portfolio: IBrokerPortfolioItem = { id: i, count: 0, price: 0 };
+    //   let portfolio: IBrokerPortfolioItem = { id: i, prices: {[]
+    //     data: "",
+    //     price: 0
+    //   } };
     //   newBrokerPortfolio.stocks.push(portfolio);
     // }
 
