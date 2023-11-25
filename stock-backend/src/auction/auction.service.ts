@@ -80,7 +80,7 @@ export class AuctionService {
     let brokerBalance = await this.brokerService.getBrokerBalance(data.brokerId);
     let newBalance = brokerBalance - data.count * data.price;
 
-    if(newBalance >= 0) {
+    if(data.count >= 0 && newBalance >= 0) {
       let brokerPortfolio = await this.brokerService.getBrokerPortfolio(data.brokerId);
 
       let stockIdx = brokerPortfolio.map((item: IBrokerPortfolioItem) => {
@@ -114,7 +114,7 @@ export class AuctionService {
     
     let pricesCopy = JSON.parse(JSON.stringify(brokerPortfolio[stockIdx].prices));
 
-    if(brokerPortfolio[stockIdx].prices.length >= data.count) {
+    if(data.count >= 0 && brokerPortfolio[stockIdx].prices.length >= data.count) {
       
       pricesCopy.sort((a, b) => b.price - a.price);
       for(let i = 0; i < data.count; i++) {
