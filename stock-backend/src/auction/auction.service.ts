@@ -73,53 +73,61 @@ export class AuctionService {
     return companiesId;
   }
 
-  // async buyStock(data: IBuyData) {
-  //   let brokerBalance = await this.brokerService.getBrokerBalance(data.brokerId);
-  //   let newBalance = brokerBalance - data.count * data.price;
+  async buyStock(data: IBuyData) {
+    let brokerBalance = await this.brokerService.getBrokerBalance(data.brokerId);
+    let newBalance = brokerBalance - data.count * data.price;
 
-  //   if(newBalance >= 0) {
-  //     let brokerPortfolio = await this.brokerService.getBrokerPortfolio(data.brokerId);
+    if(newBalance >= 0) {
+      let brokerPortfolio = await this.brokerService.getBrokerPortfolio(data.brokerId);
 
-  //     let stockPortfolio = brokerPortfolio.stocks.find((item: IBrokerPortfolioItem) => {
-  //       return item.id === data.stockId;
-  //     }); // JSON с портфолио составлен таким образом, что всегда найдется элемент с нужным id
-  //     stockPortfolio.price = data.price; // обновление цены в соответствиии с текущим курсом биржи
+      let stockIdx = brokerPortfolio.map((item: IBrokerPortfolioItem) => {
+        return item.id
+      }).indexOf(data.stockId);
 
-  //     let portfolioCopy = JSON.parse(JSON.stringify(stockPortfolio)); // для глубокого копирования
+      for(let i = 0; i < data.count; i++) {
+        brokerPortfolio[stockIdx].prices.push({
+          date: data.date,
+          price: data.price
+        })
+      }
 
-  //     stockPortfolio.count += data.count;
-  //     portfolioCopy.count += data.count;
+      let portfolioCopy = JSON.parse(JSON.stringify(brokerPortfolio)); // для глубокого копирования
 
-  //     await this.brokerService.setBrokerBalance(data.brokerId, newBalance);
-  //     return portfolioCopy;
-  //   }
+      await this.brokerService.setBrokerBalance(data.brokerId, newBalance);
+      return portfolioCopy;
+    }
     
-  //   return { isOk: false,
-  //     reason: "You don't have enough money =(" };
-  // }
+    return { isOk: false,
+      reason: "You don't have enough money =(" };
+  }
 
-  // async sellStock(data: IBuyData) {
-  //   let brokerPortfolio = await this.brokerService.getBrokerPortfolio(data.brokerId);
+  async sellStock(data: IBuyData) {
+    let brokerPortfolio = await this.brokerService.getBrokerPortfolio(data.brokerId);
 
-  //   let stockPortfolio = brokerPortfolio.stocks.find((item: IBrokerPortfolioItem) => {
-  //     return item.id === data.stockId;
-  //   }); // JSON с портфолио составлен таким образом, что всегда найдется элемент с нужным id
+    let stockIdx = brokerPortfolio.map((item: IBrokerPortfolioItem) => {
+      return item.id
+    }).indexOf(data.stockId);
 
-  //   if(stockPortfolio.count >= data.count) {
-  //     let brokerBalance = await this.brokerService.getBrokerBalance(data.brokerId);
-  //     await this.brokerService.setBrokerBalance(data.brokerId, brokerBalance + data.count * data.price);
+    
+    let pricesCopy = JSON.parse(JSON.stringify(brokerPortfolio[stockIdx].prices));
 
-  //     let portfolioCopy = JSON.parse(JSON.stringify(stockPortfolio));
+    if(brokerPortfolio[stockIdx].prices.length >= data.count) {
+      
+      pricesCopy.sort((a, b) => b.price - a.price);
+      for(let i = 0; i < data.count; i++) {
+        pricesCopy.pop();
+      }
 
-  //     stockPortfolio.count -= data.count;
-  //     portfolioCopy.count -= data.count;
+      brokerPortfolio[stockIdx].prices = JSON.parse(JSON.stringify(pricesCopy)); // обновили акции брокера с учетом удаления
 
-  //     return portfolioCopy;
-  //   }
+      let brokerBalance = await this.brokerService.getBrokerBalance(data.brokerId);
+      await this.brokerService.setBrokerBalance(data.brokerId, brokerBalance + data.count * data.price);
+      return JSON.parse(JSON.stringify(brokerPortfolio)); // кидаем копию портфолио?
+    }
 
-  //   return {
-  //     isOk: false,
-  //     reason: "You try to sell more stocks that you have"
-  //   };
-  // }
+    return {
+      isOk: false,
+      reason: "You try to sell more stocks that you have"
+    };
+  }
 }

@@ -5,6 +5,14 @@ export interface IBroker{
   stocks?: IBrokerPortfolioItem[]
 };
 
+export interface IBrokerPortfolioItem {
+  id: number,
+  prices: {
+    date: string,
+    price: number
+  }[]
+}
+
 export interface IAddBroker {
   name: string,
   balance: number
@@ -16,19 +24,6 @@ export interface IStock {
   name: string,
   price: number,
   date?: string
-}
-
-export interface IBrokerPortfolioItem {
-  id: number,
-  prices: {
-    data: string,
-    price: number
-  }
-}
-
-export interface IBrokerPortfolio {
-  brokerId: number,
-  stocks?: IBrokerPortfolioItem[]
 }
 
 export interface IStockData {
@@ -53,6 +48,7 @@ export interface ISettings {
 export interface IBuyData {
   brokerId: number,
   stockId: number,
+  date: string,
   price: number,
   count: number
 }

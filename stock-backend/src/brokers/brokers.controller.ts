@@ -29,7 +29,7 @@ export class BrokersController {
 
   @Get('/balance/:id')
   @Header('Content-Type', 'application/json')
-  async getBrokerBalace(@Param('id') id: number)
+  async getBrokerBalance(@Param('id') id: number)
   {
     return await this.brokerService.getBrokerBalance(id);
   }

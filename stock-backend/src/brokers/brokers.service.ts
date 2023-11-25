@@ -1,12 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { IAddBroker, IBroker, IBrokerPortfolio, IBrokerPortfolioItem } from 'src/interfaces/interfaces';
+import { IAddBroker, IBroker, IBrokerPortfolioItem } from 'src/interfaces/interfaces';
 import * as fs from 'fs';
 
 
 @Injectable()
 export class BrokersService {
   private brokers: IBroker[];
-  private brokersPortfolios: IBrokerPortfolio[];
 
   constructor() {
     const brokersJSON: Buffer = fs.readFileSync('./src/json/brokers.json');
@@ -19,9 +18,9 @@ export class BrokersService {
   }
 
   async getBrokerPortfolio(id: number) {
-    return this.brokersPortfolios.find((item: IBrokerPortfolio) => {
-      return item.brokerId === id;
-    })
+    return this.brokers.find((item: IBroker) => {
+      return item.id === id;
+    }).stocks;
   }
 
   async getBrokerBalance(id: number) {
@@ -51,16 +50,12 @@ export class BrokersService {
       stocks: []
     }
 
-    // for(let i = 1; i<=8; i++) {
-    //   let portfolio: IBrokerPortfolioItem = { id: i, prices: {[]
-    //     data: "",
-    //     price: 0
-    //   } };
-    //   newBrokerPortfolio.stocks.push(portfolio);
-    // }
+    for(let i = 1; i<=8; i++) {
+      let portfolio: IBrokerPortfolioItem = { id: i, prices: [] };
+      newBroker.stocks.push(portfolio);
+    }
 
     this.brokers.push(newBroker);
-    //this.brokersPortfolios.push(newBrokerPortfolio);
 
     return newBroker;
   }
@@ -74,15 +69,6 @@ export class BrokersService {
     if(brokerIdx != -1)
     {
       this.brokers.splice(brokerIdx, 1);
-    }
-
-    let brokerPortfolioIdx = this.brokersPortfolios.map((portfolio) => {
-      return portfolio.brokerId;
-    }).indexOf(id);
-
-    if(brokerPortfolioIdx != -1)
-    {
-      this.brokersPortfolios.splice(brokerPortfolioIdx, 1);
     }
   }
 
