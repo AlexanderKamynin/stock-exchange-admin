@@ -48,7 +48,7 @@ export interface ISettings {
 export interface IBuyData {
   brokerId: number,
   stockId: number,
-  date: string,
+  date?: string,
   price: number,
   count: number
 }

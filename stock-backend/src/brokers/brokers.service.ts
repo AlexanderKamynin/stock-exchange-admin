@@ -17,6 +17,12 @@ export class BrokersService {
     return this.brokers;
   }
 
+  async getBrokerById(id: number) {
+    return this.brokers.find((item: IBroker) => {
+      return item.id === id;
+    });
+  }
+
   async getBrokerPortfolio(id: number) {
     return this.brokers.find((item: IBroker) => {
       return item.id === id;
