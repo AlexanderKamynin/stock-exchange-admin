@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import { IBroker } from '../interfaces/broker';
+import { Button } from "flowbite-react";
 import axios from 'axios';
 
 interface IOnUpdateBrokerFunction {
@@ -57,7 +58,7 @@ export function UpdateBroker({onUpdate}: IOnUpdateBrokerFunction)
         <input type="number" placeholder='ID' value={id} onChange={onChangeId} />
         <input type="text" placeholder='new broker name' value={name} onChange={onChangeName} />
         <input type="number" placeholder='balance' value={balance} onChange={onChangeBalance} />
-        <button type="submit">Update</button>
+        <Button color="purple" outline type="submit" className='mb-2 mt-2'>Update</Button>
       </form>
     </>
   )

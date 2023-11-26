@@ -3,6 +3,7 @@ import { HistoricalDataService } from "../services/historicalData.service.tsx"
 import { Chart, registerables } from "chart.js";
 import { Line } from "react-chartjs-2";
 import { Link, useParams } from "react-router-dom";
+import { Button } from 'flowbite-react';
 
 
 Chart.register(...registerables);
@@ -47,9 +48,9 @@ export function ViewHistoricalData() {
   return (
     <>
       <Link to="http://localhost:3000/stocks">
-        <button>Back</button>
+        <Button color="purple" outline>Back</Button>
       </Link>
-      <div>
+      <div className="flex items-center justify-center h-screen w-720px pb-24">
         <Line data={graphic}/>
       </div>
     </>

@@ -4,6 +4,7 @@ import io, { Socket } from "socket.io-client";
 import axios from "axios";
 import { ISettings } from "../interfaces/settings.ts";
 import { IStock } from "../interfaces/stock.ts";
+import { Button, ListGroup, ListGroupItem } from 'flowbite-react';
 
 
 export function SettingsPage()
@@ -103,52 +104,59 @@ export function SettingsPage()
 
   return (
     <>
-    <Link to="http://localhost:3000/stocks"><button>Back</button></Link>
+    <div className="ml-4">
+      <Link to="http://localhost:3000/stocks"><Button color="purple" outline>Back</Button></Link>
+    </div>
 
     <form onSubmit={onSubmit}>
-      <div>
-        <p>Auction settings</p>
+      <div className="flex items-center justify-center flex-col">
+        <p className="text-2xl mb-4">Auction settings</p>
         <div>
-          <div>
+          {/* <div>
             <p>Current date</p>
             <input type="date" disabled={true} value={settings.currentDate}/>
-          </div>
+          </div> */}
 
-          <div>
-            <p>Start date</p>
+          <div className="flex items-center mb-4">
+            <p className="mr-5">Start date</p>
             <input type="date" disabled={settings.isStarted} value={settings.startDate} onChange={onChangeStartDate}/>
           </div>
 
-          <input type="number" disabled={settings.isStarted} value={settings.speed} onChange={onChangeSpeed} />
-
+          <div className="flex items-center mb-4">
+            <p className="mr-5">Speed</p>
+            <input type="number" disabled={settings.isStarted} value={settings.speed} onChange={onChangeSpeed} />
+          </div>
         </div>
+        
+        <div>
+          {
+            !settings.isStarted &&
+              <Button type="submit" color="purple" outline className="mb-2">Start auction</Button>
+          }
+
+          {
+            settings.isStarted &&
+              <Button type="submit" color="purple" outline className="mb-2">End auction</Button>
+          }
+        </div>
+
       </div>
-
-      {
-        !settings.isStarted &&
-          <button type="submit">Start auction</button>
-      }
-
-      {
-        settings.isStarted &&
-          <button type="submit">End auction</button>
-      }
     </form>
 
-    <ul>
+    <ListGroup>
           { stocks.length > 0 && settings.isStarted &&
             stocks.map((stock) => (
-              <li key={stock.id}>
-                <div>
+              <ListGroupItem key={stock.id}>
+                <div className="m-auto">
                   <p>ID: {stock.id}</p>
                   <p>Label: {stock.label}</p>
                   <p>Name: {stock.name}</p>
                   <p>Price: {stock.price}</p>
                 </div>
-              </li>
+              </ListGroupItem>
             ))
           }
-    </ul>
+    </ListGroup>
 
     </>
   )

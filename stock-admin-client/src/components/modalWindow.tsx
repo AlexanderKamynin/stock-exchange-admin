@@ -1,4 +1,5 @@
 import React, { createContext, useState } from "react";
+import { Button } from "flowbite-react";
 
 interface IModalContext {
   isOpen: boolean,
@@ -36,7 +37,7 @@ export function ModalWindow({title, content, onClose}: IModalWindowProperties) {
       <div>
         <p>{title}</p>
         { content }
-        <button onClick={onClose}>Close</button>
+        <Button color="purple" outline onClick={onClose}>Close</Button>
       </div>
     </>
   )

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { IStock } from "../interfaces/stock";
+import { Button } from "flowbite-react";
 
 
 export function StockInformation({stock}) {
@@ -39,13 +40,13 @@ export function StockInformation({stock}) {
   return (
     <>
     <input type="checkbox" checked={isStockSelected} onChange={onSelectStock}></input>
-    <div>
+    <div className="m-auto">
       <p>ID: {stock.id}</p>
       <p>label: {stock.label}</p>
       <p>Company: {stock.name}</p>
       <p>Price: {stock.price}</p>
     </div>
-    <Link to={`/history/${stock.id}`}>History</Link>
+    <Link to={`/history/${stock.id}`}><Button color="purple" outline>History</Button></Link>
     </>
   )
 }

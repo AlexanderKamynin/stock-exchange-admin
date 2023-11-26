@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import { IBroker, IBrokerAdd } from '../interfaces/broker';
+import { Button } from "flowbite-react";
 import axios from 'axios';
 
 interface IOnAddBrokerFunction {
@@ -26,6 +27,9 @@ export function AddBroker({onAdd}: IOnAddBrokerFunction)
       console.log(response.data);
       onAdd(response.data);
     }
+    else {
+      alert("Пустое имя и баланс");
+    }
   }
 
   function onChangeName(event) {
@@ -40,8 +44,8 @@ export function AddBroker({onAdd}: IOnAddBrokerFunction)
     <>
       <form onSubmit={onSubmit}>
         <input type="text" placeholder='new broker name' value={name} onChange={onChangeName} />
-        <input type="number" placeholder='balance' value={balance} onChange={onChangeBalance} />
-        <button type="submit">Add</button>
+        <input type="number" placeholder='balance' value={balance} onChange={onChangeBalance} className='mb-2'/>
+        <Button color="purple" outline type="submit" className="mb-2">Add</Button>
       </form>
     </>
   )

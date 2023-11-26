@@ -4,7 +4,7 @@ import { BrokersService } from "../services/brokers.service.tsx"
 import { ModalWindow, ModalWindowState } from "../components/modalWindow.tsx";
 import { IBroker } from "../interfaces/broker.ts";
 import { UpdateBroker } from "../components/updateBroker.tsx";
-
+import { Button, ListGroup, ListGroupItem } from 'flowbite-react';
 
 export function BrokersPage(){
   const { isOpen: isOpenAdd, open: openModalAdd, close: closeModalAdd } = ModalWindowState();
@@ -27,50 +27,56 @@ export function BrokersPage(){
   return (
     <>
       <div className='brokers'>
-        <ul>
+        <ListGroup className="mb-4">
           {
             brokers.map((broker) => (
-              <li key={broker.id}>
-                <div>
+              <ListGroupItem key={broker.id}>
+                <div className="m-auto">
                   <p>ID: {broker.id}</p>
                   <p>Name: {broker.name}</p>
-                  <p>Balance: {broker.balance}</p>
-                  <button onClick={() => deleteBroker(broker.id)}>Delete</button>
+                  <p>Balance: ${broker.balance}</p>
                 </div>
-              </li>
+                
+                <Button color="purple" outline onClick={() => deleteBroker(broker.id)}>Delete</Button>
+              </ListGroupItem>
             ))
           }
-        </ul>
+        </ListGroup>
       </div>
 
-      {
-        isOpenAdd && 
+      <div className="flex items-center justify-center flex-col">
+      <div className="mb-2">
+        {
+          isOpenAdd && 
+            <ModalWindow
+              title={"Add broker"}
+              content={<AddBroker onAdd={onAddBroker}/>}
+              onClose={closeModalAdd}
+            />
+        }
+        
+        {
+          !isOpenAdd &&
+            <Button color='purple' outline onClick={openModalAdd}>Add broker</Button>
+        }
+      </div>
+
+      <div>
+        {
+          !isOpenUpdate &&
+          <Button color='purple' outline onClick={openModalUpdate}>Change</Button>
+        }
+
+        {
+          isOpenUpdate &&
           <ModalWindow
-            title={"Add broker"}
-            content={<AddBroker onAdd={onAddBroker}/>}
-            onClose={closeModalAdd}
+            title={"Change information"}
+            content={<UpdateBroker onUpdate={onUpdateBroker}/>}
+            onClose={closeModalUpdate}
           />
-      }
-      
-      {
-        !isOpenAdd &&
-          <button onClick={openModalAdd}>Add broker</button>
-      }
-
-
-      {
-        !isOpenUpdate &&
-        <button onClick={openModalUpdate}>Change</button>
-      }
-
-      {
-        isOpenUpdate &&
-        <ModalWindow
-          title={"Change information"}
-          content={<UpdateBroker onUpdate={onUpdateBroker}/>}
-          onClose={closeModalUpdate}
-        />
-      }
+        }
+      </div>
+      </div>
     </>
   )
 }
