@@ -16,6 +16,13 @@ export class AuctionService {
     private brokerService: BrokersService
   ) {};
 
+  async getDate() {
+    const { currentDate } = this.settings.getSettings();
+    console.log(this.settings.getSettings());
+    console.log(currentDate);
+    return currentDate;
+  }
+
   async startAuction() {
     const { startDate, chosenStocks } = this.settings.getSettings();
     this.selectedCompaniesId = AuctionService.getSelectedCompanies(chosenStocks);

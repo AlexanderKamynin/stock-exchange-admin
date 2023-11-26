@@ -35,6 +35,7 @@ export class WebsocketGateway {
         if(isStarted && updatedStocks && dataIdx) {
           let updatingStocksString = await this.auctionService.getNewPrices(--dataIdx);
           updatedStocks = updatingStocksString;
+          this.settingsService.setNewDate(updatedStocks? updatedStocks[0].date : '');
           console.log(updatedStocks);
           this.server.emit('updatePrices', updatedStocks);
         }

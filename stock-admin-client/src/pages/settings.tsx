@@ -16,6 +16,7 @@ export function SettingsPage()
   }
 
   const [socket, setSocket] = useState<Socket>();
+  const [currentDate, setCurrentDate] = useState<string>('');
   const [stocks, setStocks] = useState<IStock[]>([]);
   const [settings, setSettings] = useState<ISettings>({
     speed: 0,
@@ -95,8 +96,14 @@ export function SettingsPage()
     }
   }
 
+  async function setNewDate() {
+    const newDate = (await axios.get('http://localhost:3001/auction/date')).data;
+    setCurrentDate(newDate);
+  }
+
   useEffect(() => {
     socket?.on('updatePrices', onChangeStock);
+    setNewDate();
     return () => {
       socket?.off('updatePrices', onChangeStock);
     };
@@ -139,6 +146,15 @@ export function SettingsPage()
               <Button type="submit" color="purple" outline className="mb-2">End auction</Button>
           }
         </div>
+
+        {
+          settings.isStarted && currentDate &&
+            <p>Current date: {currentDate}</p>
+        }
+        {
+          settings.isStarted && !currentDate &&
+          <p>Current date: {settings.startDate}</p>
+        }
 
       </div>
     </form>

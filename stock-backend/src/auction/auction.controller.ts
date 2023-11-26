@@ -1,4 +1,4 @@
-import { Body, Controller, Header, Post } from '@nestjs/common';
+import { Body, Controller, Get, Header, Post } from '@nestjs/common';
 import { AuctionService } from './auction.service';
 import { IBuyData } from 'src/interfaces/interfaces';
 
@@ -9,7 +9,13 @@ export class AuctionController {
 
   };
 
-  //Ну тут был прикол с httpCode...
+  @Get('date')
+  @Header('Content-Type', 'application/json')
+  async getDate()
+  {
+    return await this.auctionService.getDate();
+  }
+
   @Post('buy')
   @Header('Content-Type', 'application/json')
   async buyStock(@Body() data: IBuyData) {

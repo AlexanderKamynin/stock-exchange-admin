@@ -15,6 +15,10 @@ export class SettingsService {
     return this.settings;
   }
 
+  setNewDate(date: string) {
+    this.settings.currentDate = date;
+  }
+
   async updateSettings(newSettings: ISettings) {
     this.settings = {
       speed: newSettings.speed,
